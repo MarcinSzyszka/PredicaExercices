@@ -1,0 +1,6 @@
+﻿@model Predica.WebApp.Models.GridActionsColumn
+<div>
+    <a href="@Url.Action(Model.EditAction, Model.Controller, new { id = Model.Id })" class="btn btn-primary">Edit</a>
+    <a href="@Url.Action(Model.DeleteAction, Model.Controller, new { id = Model.Id })" class="btn btn-primary">Delete</a>
+</div>
+

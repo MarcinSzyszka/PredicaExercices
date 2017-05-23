@@ -1,0 +1,57 @@
+﻿@using NonFactors.Mvc.Grid;
+
+@model IGridPager
+
+@{
+    int totalPages = Model.TotalPages;
+    int currentPage = Model.CurrentPage;
+    int firstDisplayPage = Model.FirstDisplayPage;
+
+    int[] rowsPerPage = { 10, 20, 50, 100, 500 };
+}
+
+<div class="mvc-grid-pager @Model.CssClasses">
+    <input class="mvc-grid-pager-rows" type="hidden" value="@Model.RowsPerPage" />
+    <input class="mvc-grid-pager-totalrows" type="hidden" value="@Model.TotalRows" />
+
+    @if (totalPages > 1)
+    {
+        <div class="uk-grid">
+            <div class="uk-width-1-2">
+                <ul class="uk-pagination uk-align-left">
+                    @if (currentPage > 1)
+                    {
+                        <li data-page="1"><span>&laquo;</span></li>
+                        <li data-page="@(currentPage - 1)"><span>&lsaquo;</span></li>
+                    }
+                    else
+                    {
+                        <li class="uk-disabled"><span>&laquo;</span></li>
+                        <li class="uk-disabled"><span>&lsaquo;</span></li>
+                    }
+                    @for (int page = firstDisplayPage; page <= totalPages && page < firstDisplayPage + Model.PagesToDisplay; page++)
+                    {
+                        if (page == currentPage)
+                        {
+                            <li class="uk-active" data-page="@page"><span>@page</span></li>
+                        }
+                        else
+                        {
+                            <li data-page="@page"><span>@page</span></li>
+                        }
+                    }
+                    @if (currentPage < totalPages)
+                    {
+                        <li data-page="@(currentPage + 1)"><span>&rsaquo;</span></li>
+                        <li data-page="@totalPages"><span>&raquo;</span></li>
+                    }
+                    else
+                    {
+                        <li class="uk-disabled"><span>&rsaquo;</span></li>
+                        <li class="uk-disabled"><span>&raquo;</span></li>
+                    }
+                </ul>
+            </div>
+        </div>
+    }
+</div>

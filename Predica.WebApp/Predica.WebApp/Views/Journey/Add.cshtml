@@ -1,0 +1,13 @@
+﻿@model Predica.WebApp.ViewModels.JourneyViewModel
+@Html.AntiForgeryToken()
+<form asp-controller="Journey" asp-action="Add" method="POST" class="">
+
+    @Html.EditorForModel()
+</form>
+
+@section Scripts
+{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

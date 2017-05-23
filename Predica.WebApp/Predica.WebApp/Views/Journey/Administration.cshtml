@@ -1,0 +1,49 @@
+@using NonFactors.Mvc.Grid;
+@using Predica.WebApp.Controllers
+@using Predica.WebApp.Models;
+@using Predica.WebApp.Data.Entity
+@model IEnumerable<Predica.WebApp.ViewModels.JourneyViewModel>
+
+
+<h2>All users Journeys</h2>
+<div class="row">
+    @Html.AntiForgeryToken()
+    <div class="col-md-12 text-center">
+        @(Html
+              .Grid(Model)
+              .Named(nameof(Journey))
+              .Build(c =>
+              {
+                  c.Add(m => m.Destination).Titled("Destination");
+                  c.Add(m => m.Description).Titled("Description");
+                  c.Add(m => m.StartDate).Titled("Start date");
+                  c.Add(m => m.EndDate).Titled("End date");
+                  c.Add(m => m.TransportModeName).Titled("Transport mode");
+                  c.Add(m => m.TravelerObjectIdentifier).Titled("User identifier");
+                  c.Add(m => Html.Partial("MvcGrid/_Actions", new GridActionsColumn
+                  {
+                      Id = m.Id,
+                      Controller = nameof(Journey),
+                      EditAction = nameof(JourneyController.Edit),
+                      DeleteAction = nameof(JourneyController.Delete)
+                  })).Titled(string.Empty).Encoded(false).Sortable(false).Filterable(false);
+              })
+              .Filterable()
+              .Sortable()
+              .Empty("Empty")
+              )
+    </div>
+</div>
+
+@section Styles
+{
+    @{
+        await Html.RenderPartialAsync("MvcGrid/_Styles");
+    }
+}
+@section Scripts
+{
+    @{
+        await Html.RenderPartialAsync("MvcGrid/_Scripts");
+    }
+}

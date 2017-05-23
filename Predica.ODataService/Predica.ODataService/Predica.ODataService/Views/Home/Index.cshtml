@@ -1,0 +1,42 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@using NonFactors.Mvc.Grid;
+@model IEnumerable<Predica.ODataService.ViewModels.Person>
+
+<div class="row top-margin">
+    <div class="col-md-12">
+        <h3>Table People</h3>
+    </div>
+</div>
+<div class="row top-margin">
+    <div class="col-md-12">
+        @(Html
+              .Grid(Model)
+              .Css("uk-table uk-table-hover uk-table-striped")
+              .Build(c =>
+              {
+                  c.Add(m => m.UserName).Titled("User Name");
+                  c.Add(m => m.FirstName).Titled("First Name");
+                  c.Add(m => m.LastName).Titled("Last Name");
+                  c.Add(m => m.Gender).Titled("Gender");
+                  c.Add(m => m.DefaultEmail).Titled("Email");
+              })
+              .Filterable()
+              .Sortable()
+              )
+    </div>
+</div>
+
+
+
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $(".mvc-grid").mvcgrid();
+        });
+    </script>
+
+}

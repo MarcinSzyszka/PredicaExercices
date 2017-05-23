@@ -1,0 +1,54 @@
+﻿@using NonFactors.Mvc.Grid;
+@using Predica.WebApp.Controllers
+@using Predica.WebApp.Models;
+@using Predica.WebApp.Data.Entity
+@model IEnumerable<Predica.WebApp.ViewModels.JourneyViewModel>
+
+
+<h2>My Journeys</h2>
+<div class="row action-buttons-margin">
+        <a class="btn btn-primary" asp-controller="Journey" asp-action="Add">Add new</a>
+</div>
+<div class="row">
+    @Html.AntiForgeryToken()
+    <div class="col-md-12">
+        <p>
+        @(Html
+              .Grid(Model)
+              .Named(nameof(Journey))
+              .Build(c =>
+              {
+                  c.Add(m => m.Destination).Titled("Destination");
+                  c.Add(m => m.Description).Titled("Description");
+                  c.Add(m => m.StartDate).Titled("Start date");
+                  c.Add(m => m.EndDate).Titled("End date");
+                  c.Add(m => m.TransportModeName).Titled("Transport mode");
+                  c.Add(m => Html.Partial("MvcGrid/_Actions", new GridActionsColumn
+                  {
+                      Id = m.Id,
+                      Controller = nameof(Journey),
+                      EditAction = nameof(JourneyController.Edit),
+                      DeleteAction = nameof(JourneyController.Delete),
+                  })).Titled(string.Empty).Encoded(false).Sortable(false).Filterable(false);
+              })
+              .Filterable()
+              .Sortable()
+              .Empty("Empty")
+              )
+        </p>
+    </div>
+</div>
+
+@section Styles
+{
+    @{
+        Html.RenderPartial("MvcGrid/_Styles");
+    }
+}
+
+@section Scripts
+{
+    @{
+        Html.RenderPartial("MvcGrid/_Scripts");
+    }
+}

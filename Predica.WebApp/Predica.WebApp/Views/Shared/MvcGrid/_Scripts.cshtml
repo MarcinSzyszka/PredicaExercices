@@ -1,0 +1,12 @@
+<environment names="Development">
+    <script src="~/js/mvc-grid.js"></script>
+</environment>
+<environment names="Staging,Production">
+    <script src="~/js/mvc-grid.min.js" asp-append-version="true"></script>
+</environment>
+
+<script>
+    $(document).ready(function () {
+        $(".mvc-grid").mvcgrid();
+    });
+</script>
